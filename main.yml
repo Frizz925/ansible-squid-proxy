@@ -3,6 +3,7 @@
   vars_prompt:
     - name: proxy_username
       prompt: "Proxy username"
+      private: no
     - name: proxy_password
       prompt: "Proxy password"
       confirm: yes
@@ -17,12 +18,10 @@
           - python
           - python-pip
           - python-virtualenv
+          - python-passlib
         state: latest
         update_cache: yes
         cache_valid_time: 86400
-    - name: Install prerequisite pip packages
-      pip:
-        name: libpass
   roles:
     - squid
   become: yes
