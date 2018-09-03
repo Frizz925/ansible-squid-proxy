@@ -1,0 +1,5 @@
+auth_param basic /usr/lib/squid/basic_ncsa_auth /etc/squid/passwords
+acl authenticated proxy_auth
+http allow authenticated
+http deny all
+http_port 0.0.0.0:{{ proxy_port }}

@@ -1,0 +1,28 @@
+---
+- block:
+    - name: Install Squid proxy
+      apt:
+        name: squid
+        state: latest
+        update_cache: yes
+        cache_valid_time: 86400
+    - name: Copy configuration
+      template:
+        src: squid.conf.j2
+        dest: /etc/squid/squid.conf
+        owner: root
+        group: root
+        mode: 0600
+    - name: Generate password file
+      htpasswd:
+        path: /etc/squid/passwords
+        name: "{{ proxy_username }}"
+        password: "{{ proxy_password }}"
+        owner: root
+        group: root
+        mode: 0600
+    - name: Reload squid proxy
+      service:
+        name: squid
+        state: reloaded
+...
